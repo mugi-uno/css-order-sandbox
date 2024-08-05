@@ -1,0 +1,20 @@
+.main {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.code {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+.code pre {
+  color: white;
+  background-color: #333;
+  border-radius: 3px;
+  padding: 16px;
+  margin: 0;
+}
