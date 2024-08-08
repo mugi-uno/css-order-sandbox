@@ -1,12 +1,14 @@
 .main {
+  font-size: 18px;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 16px;
+  padding: 8px;
 }
 
 .code {
   display: grid;
-  grid-template-rows: 1fr 1fr;
+  grid-template-rows: min-content min-content;
   grid-template-columns: 1fr;
   gap: 16px;
 }
@@ -17,4 +19,26 @@
   border-radius: 3px;
   padding: 16px;
   margin: 0;
+  font-family: inherit;
+}
+
+.code code {
+  font-family: inherit;
+}
+
+.resultWrapper {
+  display: grid;
+  grid-template-rows: min-content;
+}
+
+.resultTitle {
+  font-weight: bold;
+  font-size: 16px;
+  color: #333 !important;
+}
+
+.result {
+  padding: 8px;
+  border: 1px solid #aaa;
+  border-radius: 3px;
 }

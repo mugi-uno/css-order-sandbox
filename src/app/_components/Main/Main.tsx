@@ -1,8 +1,17 @@
 "use client";
 
+import { Noto_Sans_Mono } from "next/font/google";
 import dedent from "dedent";
 import { useEffect, useRef, useState } from "react";
 import style from "./Main.module.css";
+import clsx from "clsx";
+import hljs from "highlight.js";
+import "highlight.js/styles/atom-one-dark.css";
+
+const notSansMono = Noto_Sans_Mono({
+  subsets: ["latin"],
+  weight: ["400", "700"],
+});
 
 type Props = {
   css: string;
@@ -21,14 +30,29 @@ export const Main = ({ css, children }: Props) => {
   return (
     <>
       <style>{dedent(css)}</style>
-      <main className={style.main}>
+      <main className={clsx(style.main, notSansMono.className)}>
         <section className={style.code}>
-          <pre>{html}</pre>
-          <pre>{dedent(css)}</pre>
+          <pre>
+            <code
+              dangerouslySetInnerHTML={{
+                __html: hljs.highlightAuto(html).value,
+              }}
+            ></code>
+          </pre>
+          <pre>
+            <code
+              dangerouslySetInnerHTML={{
+                __html: hljs.highlightAuto(dedent(css)).value,
+              }}
+            ></code>
+          </pre>
         </section>
-        <section>
-          <main ref={htmlRef}>{children}</main>
-        </section>
+        <div className={style.resultWrapper}>
+          <div className={style.resultTitle}>Result</div>
+          <section className={style.result}>
+            <main ref={htmlRef}>{children}</main>
+          </section>
+        </div>
       </main>
     </>
   );
