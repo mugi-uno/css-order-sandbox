@@ -7,6 +7,7 @@ import style from "./Main.module.css";
 import clsx from "clsx";
 import hljs from "highlight.js";
 import "highlight.js/styles/atom-one-dark.css";
+import { formatHTML } from "./action";
 
 const notSansMono = Noto_Sans_Mono({
   subsets: ["latin"],
@@ -21,14 +22,16 @@ type Props = {
 
 export const Main = ({ css, js, children }: Props) => {
   const htmlRef = useRef<HTMLElement>(null);
-  const jsRef = useRef<HTMLElement>(null);
   const cssRef = useRef<HTMLStyleElement>(null);
   const [html, setHtml] = useState("");
 
   const [initialized, setInitialized] = useState(false);
 
   useEffect(() => {
-    setHtml(htmlRef.current?.innerHTML || "");
+    (async () => {
+      const html = await formatHTML(htmlRef.current?.innerHTML || "");
+      setHtml(html);
+    })();
   }, [htmlRef, cssRef]);
 
   useEffect(() => {
