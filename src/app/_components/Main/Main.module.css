@@ -6,11 +6,20 @@
   padding: 8px;
 }
 
+.hasJs {
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 16px;
+}
+
 .code {
   display: grid;
   grid-template-rows: min-content min-content;
   grid-template-columns: 1fr;
   gap: 16px;
+}
+
+.codeJS {
+  gap: 0px;
 }
 
 .code pre {

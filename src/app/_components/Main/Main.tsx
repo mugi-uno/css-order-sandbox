@@ -15,38 +15,65 @@ const notSansMono = Noto_Sans_Mono({
 
 type Props = {
   css: string;
+  js?: string;
   children: React.ReactNode;
 };
 
-export const Main = ({ css, children }: Props) => {
+export const Main = ({ css, js, children }: Props) => {
   const htmlRef = useRef<HTMLElement>(null);
+  const jsRef = useRef<HTMLElement>(null);
   const cssRef = useRef<HTMLStyleElement>(null);
   const [html, setHtml] = useState("");
+
+  const [initialized, setInitialized] = useState(false);
 
   useEffect(() => {
     setHtml(htmlRef.current?.innerHTML || "");
   }, [htmlRef, cssRef]);
 
+  useEffect(() => {
+    if (!initialized) {
+      setInitialized(true);
+    } else {
+      js && eval(js || "");
+    }
+  }, [initialized, js]);
+
   return (
     <>
       <style>{dedent(css)}</style>
-      <main className={clsx(style.main, notSansMono.className)}>
+      <main
+        className={clsx(style.main, notSansMono.className, js && style.hasJs)}
+      >
         <section className={style.code}>
           <pre>
             <code
               dangerouslySetInnerHTML={{
-                __html: hljs.highlightAuto(html).value,
+                __html: hljs.highlight(html, { language: "xml" }).value,
               }}
             ></code>
           </pre>
           <pre>
             <code
               dangerouslySetInnerHTML={{
-                __html: hljs.highlightAuto(dedent(css)).value,
+                __html: hljs.highlight(dedent(css), { language: "css" }).value,
               }}
             ></code>
           </pre>
         </section>
+
+        {js && (
+          <section className={clsx(style.code, style.codeJS)}>
+            <pre>
+              <code
+                dangerouslySetInnerHTML={{
+                  __html: hljs.highlight(dedent(js), { language: "javascript" })
+                    .value,
+                }}
+              ></code>
+            </pre>
+          </section>
+        )}
         <div className={style.resultWrapper}>
           <div className={style.resultTitle}>Result</div>
           <section className={style.result}>
