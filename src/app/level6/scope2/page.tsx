@@ -4,10 +4,21 @@ export default function Page() {
   return (
     <>
       <Main
+        horizontal
         css={`
+          @scope (.root) {
+            span {
+              color: green;
+            }
+          }
           @scope (.parent) {
             span {
               color: red;
+            }
+          }
+          @scope (.child) {
+            span {
+              color: blue;
             }
           }
         `}

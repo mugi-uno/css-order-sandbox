@@ -22,6 +22,15 @@
   gap: 0px;
 }
 
+.horizontal {
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.horizontal {
+  grid-template-rows: min-content;
+}
+
 .code pre {
   color: white;
   background-color: #333;

@@ -17,10 +17,11 @@ const notSansMono = Noto_Sans_Mono({
 type Props = {
   css: string;
   js?: string;
+  horizontal?: boolean;
   children: React.ReactNode;
 };
 
-export const Main = ({ css, js, children }: Props) => {
+export const Main = ({ css, js, horizontal, children }: Props) => {
   const htmlRef = useRef<HTMLElement>(null);
   const cssRef = useRef<HTMLStyleElement>(null);
   const [html, setHtml] = useState("");
@@ -48,7 +49,7 @@ export const Main = ({ css, js, children }: Props) => {
       <main
         className={clsx(style.main, notSansMono.className, js && style.hasJs)}
       >
-        <section className={style.code}>
+        <section className={clsx(style.code, horizontal && style.horizontal)}>
           <pre>
             <code
               dangerouslySetInnerHTML={{
